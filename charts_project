@@ -1,0 +1,186 @@
+import matplotlib.pyplot as plt
+import numpy as np
+
+# Sample data
+categories = ['A', 'B', 'C', 'D', 'E']
+values1 = [23, 30, 15, 35, 42]
+values2 = [15, 20, 25, 30, 35]
+values3 = [10, 25, 20, 15, 30]
+
+# Sample color palette
+colors = ['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd']
+
+# Stacked column chart
+plt.figure(figsize=(8, 6))
+plt.bar(categories, values1, color=colors[0], label='Group 1')
+plt.bar(categories, values2, bottom=values1, color=colors[1], label='Group 2')
+plt.bar(categories, values3, bottom=np.array(values1)+np.array(values2), color=colors[2], label='Group 3')
+plt.xlabel('Categories')
+plt.ylabel('Values')
+plt.title('Stacked Column Chart')
+plt.legend()
+plt.show()
+
+# Clustered bar chart
+plt.figure(figsize=(8, 6))
+bar_width = 0.25
+index = np.arange(len(categories))
+plt.bar(index, values1, bar_width, color=colors[0], label='Group 1')
+plt.bar(index + bar_width, values2, bar_width, color=colors[1], label='Group 2')
+plt.bar(index + 2 * bar_width, values3, bar_width, color=colors[2], label='Group 3')
+plt.xlabel('Categories')
+plt.ylabel('Values')
+plt.title('Clustered Bar Chart')
+plt.xticks(index + bar_width, categories)
+plt.legend()
+plt.show()
+
+# Clustered column chart
+plt.figure(figsize=(8, 6))
+plt.barh(index, values1, bar_width, color=colors[0], label='Group 1')
+plt.barh(index + bar_width, values2, bar_width, color=colors[1], label='Group 2')
+plt.barh(index + 2 * bar_width, values3, bar_width, color=colors[2], label='Group 3')
+plt.ylabel('Categories')
+plt.xlabel('Values')
+plt.title('Clustered Column Chart')
+plt.yticks(index + bar_width, categories)
+plt.legend()
+plt.show()
+
+# 100% bar chart
+total = np.array(values1) + np.array(values2) + np.array(values3)
+values1_percent = np.array(values1) / total * 100
+values2_percent = np.array(values2) / total * 100
+values3_percent = np.array(values3) / total * 100
+
+plt.figure(figsize=(8, 6))
+plt.bar(categories, values1_percent, color=colors[0], label='Group 1')
+plt.bar(categories, values2_percent, bottom=values1_percent, color=colors[1], label='Group 2')
+plt.bar(categories, values3_percent, bottom=values1_percent+values2_percent, color=colors[2], label='Group 3')
+plt.xlabel('Categories')
+plt.ylabel('Percentage')
+plt.title('100% Stacked Bar Chart')
+plt.legend()
+plt.show()
+
+# 100% stacked column chart (Similar to 100% stacked bar chart but horizontal)
+
+# Line chart
+plt.figure(figsize=(8, 6))
+plt.plot(categories, values1, marker='o', color=colors[0], label='Line 1')
+plt.plot(categories, values2, marker='s', color=colors[1], label='Line 2')
+plt.plot(categories, values3, marker='^', color=colors[2], label='Line 3')
+plt.xlabel('Categories')
+plt.ylabel('Values')
+plt.title('Line Chart')
+plt.legend()
+plt.show()
+
+# Area chart
+plt.figure(figsize=(8, 6))
+plt.fill_between(categories, values1, color=colors[0], alpha=0.5, label='Area 1')
+plt.fill_between(categories, values2, color=colors[1], alpha=0.5, label='Area 2')
+plt.fill_between(categories, values3, color=colors[2], alpha=0.5, label='Area 3')
+plt.xlabel('Categories')
+plt.ylabel('Values')
+plt.title('Area Chart')
+plt.legend()
+plt.show()
+
+# Stacked area chart (Multiple lines but filled up)
+plt.figure(figsize=(8, 6))
+plt.stackplot(categories, values1, values2, values3, labels=['Stack 1', 'Stack 2', 'Stack 3'], colors=colors)
+plt.xlabel('Categories')
+plt.ylabel('Values')
+plt.title('Stacked Area Chart')
+plt.legend()
+plt.show()
+
+# Line and stacked column chart (Combination of line and bar chart)
+plt.figure(figsize=(8, 6))
+plt.plot(categories, values1, marker='o', color=colors[0], label='Line 1')
+plt.plot(categories, values2, marker='s', color=colors[1], label='Line 2')
+plt.bar(categories, values3, color=colors[2], label='Stacked Column', alpha=0.5)
+plt.xlabel('Categories')
+plt.ylabel('Values')
+plt.title('Line and Stacked Column Chart')
+plt.legend()
+plt.show()
+
+# Scatter chart
+x = np.random.rand(50)
+y = np.random.rand(50)
+colors_scatter = np.random.rand(50)
+sizes = 1000 * np.random.rand(50)
+
+plt.figure(figsize=(8, 6))
+plt.scatter(x, y, c=colors_scatter, s=sizes, alpha=0.5, cmap='viridis')
+plt.xlabel('X')
+plt.ylabel('Y')
+plt.title('Scatter Chart')
+plt.colorbar(label='Color')
+plt.show()
+
+## Ribbon chart
+
+import matplotlib.pyplot as plt
+
+categories = ['Category 1', 'Category 2', 'Category 3', 'Category 4']
+values = [20, 35, 25, 40]
+colors = ['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728']
+
+plt.figure(figsize=(8, 6))
+for i in range(len(categories) - 1):
+    plt.fill_betweenx([i, i+1], values[i], values[i+1], color=colors[i])
+
+plt.yticks(range(len(categories)), categories)
+plt.xlabel('Values')
+plt.title('Ribbon Chart')
+plt.show()
+
+## Waterfall chart
+
+pip install waterfall_chart
+
+import waterfall_chart
+
+categories = ['Start', 'Step 1', 'Step 2', 'Step 3', 'End']
+values = [100, -20, 30, -10, 80]
+
+waterfall_chart.plot(categories, values, rotation_value=90)
+plt.title('Waterfall Chart')
+plt.show()
+
+## Funnel chart
+
+import plotly.graph_objects as go
+
+labels = ['Step 1', 'Step 2', 'Step 3', 'Step 4']
+values = [100, 75, 50, 25]
+
+fig = go.Figure(go.Funnel(
+    y=labels,
+    x=values,
+    textinfo="value+percent initial",
+    marker=dict(color=["#1f77b4", "#ff7f0e", "#2ca02c", "#d62728"])
+))
+
+fig.update_layout(title='Funnel Chart')
+fig.show()
+
+## Treemap
+
+pip install squarify
+
+import matplotlib.pyplot as plt
+import squarify
+
+sizes = [500, 300, 200, 100]
+labels = ['Category 1', 'Category 2', 'Category 3', 'Category 4']
+colors = ['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728']
+
+squarify.plot(sizes=sizes, label=labels, color=colors, alpha=0.7)
+plt.axis('off')
+plt.title('Treemap')
+plt.show()
+
